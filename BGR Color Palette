@@ -1,0 +1,52 @@
+import cv2
+import numpy as np
+
+def bgr_color_palette_trackbars(window_name="BGR Color Palette"):
+  """
+  Creates a window with BGR color trackbars and displays the selected color.
+
+  Args:
+      window_name: The name of the window to display (optional).
+  """
+  # Create a black image for color display
+  img = np.zeros((256, 512, 3), np.uint8)
+
+  # Define initial color values (BGR)
+  blue, green, red = 0, 0, 0
+
+  # Callback function to update color and image display based on trackbar positions
+  def update_color(value):
+    nonlocal blue, green, red  # Access and modify non-local variables
+    blue = cv2.getTrackbarPos('Blue', window_name)
+    green = cv2.getTrackbarPos('Green', window_name)
+    red = cv2.getTrackbarPos('Red', window_name)
+
+    # Update image color
+    img[:] = (blue, green, red)
+
+    # Update image display
+    cv2.imshow(window_name, img)
+
+  # Create the window
+  cv2.namedWindow(window_name)
+
+  # Create trackbars for Blue, Green, Red channels (0-255 range)
+  cv2.createTrackbar('Blue', window_name, 0, 255, update_color)
+  cv2.createTrackbar('Green', window_name, 0, 255, update_color)
+  cv2.createTrackbar('Red', window_name, 0, 255, update_color)
+
+  # Set initial trackbar positions
+  cv2.setTrackbarPos('Blue', window_name, blue)
+  cv2.setTrackbarPos('Green', window_name, green)
+  cv2.setTrackbarPos('Red', window_name, red)
+
+  # Update color and image display initially
+  update_color(0)
+
+  # Display the window with trackbars and color preview
+  cv2.imshow(window_name, img)
+  cv2.waitKey(0)  # Wait for a key press to close the window
+  cv2.destroyAllWindows()
+
+# Run the function
+bgr_color_palette_trackbars()
