@@ -1,0 +1,39 @@
+import cv2
+
+def rotate_image_clockwise_y_axis(image, angle):
+  """
+  Rotates an image along the y-axis with a specified angle.
+
+  Args:
+      image: The input image as a NumPy array.
+      angle: The rotation angle in degrees (positive for clockwise).
+
+  Returns:
+      The rotated image as a NumPy array.
+  """
+  # Get image dimensions
+  height, width = image.shape[:2]
+
+  # Define rotation matrix using absolute angle % 360 for convenience
+  rotation_matrix = cv2.getRotationMatrix2D((width, 0), abs(angle) % 360, 1.0)
+
+  # Rotate the image
+  rotated_image = cv2.warpAffine(image, rotation_matrix, (height, width))
+
+  return rotated_image
+
+# Example usage
+image = cv2.imread("C:/Users/shree/Downloads/download (1).jpg")
+
+# Rotations with different angles
+rotated_image_90 = rotate_image_clockwise_y_axis(image.copy(), 90)
+rotated_image_180 = rotate_image_clockwise_y_axis(image.copy(), 180)
+rotated_image_270 = rotate_image_clockwise_y_axis(image.copy(), 270)
+
+# Display original and rotated images
+cv2.imshow("Original Image", image)
+cv2.imshow("Rotated Image (90° Clockwise Y-axis)", rotated_image_90)
+cv2.imshow("Rotated Image (180° Clockwise Y-axis)", rotated_image_180)
+cv2.imshow("Rotated Image (270° Clockwise Y-axis)", rotated_image_270)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
