@@ -1,0 +1,31 @@
+import cv2
+
+# Path to your image
+image_path = "C:/Users/shree/Downloads/download (1).jpg"
+
+# Read the image in color
+image = cv2.imread(image_path)
+
+# Check if image read successfully
+if image is None:
+    print("Error: Could not read image from", image_path)
+    exit()
+
+# Define the kernel size for Gaussian Blur (experiment with different values)
+kernel_size = (5, 5)  # Width, Height
+
+# Define sigmaX (optional, controls blur strength)
+sigmaX = 0  # Set to 0 for automatic calculation based on kernel size
+
+# Apply Gaussian Blur
+blurred_image = cv2.GaussianBlur(image, kernel_size, sigmaX)
+
+# Display the original and blurred image
+cv2.imshow("Original Image", image)
+cv2.imshow("Blurred Image", blurred_image)
+
+# Wait for a key press to close windows
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
