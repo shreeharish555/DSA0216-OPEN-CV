@@ -1,0 +1,25 @@
+import cv2
+
+def canny_edge_detection(image, threshold_low=50, threshold_high=100):
+  # Convert image to grayscale (if colored)
+  gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+  # Apply Gaussian blur for noise reduction
+  blur = cv2.GaussianBlur(gray, (5, 5), 0)
+
+  # Apply Canny edge detection
+  edges = cv2.Canny(blur, threshold_low, threshold_high)
+
+  return edges
+
+# Read the image
+image = cv2.imread("your_image.jpg")
+
+# Apply Canny edge detection (adjust thresholds as needed)
+edges = canny_edge_detection(image, 30, 90)
+
+# Display original and edge image
+cv2.imshow("Original Image", image)
+cv2.imshow("Edges (Canny)", edges)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
