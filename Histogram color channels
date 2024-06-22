@@ -1,0 +1,26 @@
+import cv2
+import matplotlib.pyplot as plt
+
+def plot_color_channel_histograms(image):
+  """
+  Analyzes and plots the histogram of an image for each color channel (BGR).
+
+  Args:
+      image: The input image as a NumPy array.
+  """
+  # Split the image into BGR channels
+  b, g, r = cv2.split(image)
+
+  # Calculate and plot histograms for each channel
+  channel_names = ['Blue', 'Green', 'Red']
+  for channel, name in zip([b, g, r], channel_names):
+    plt.hist(channel.ravel(), bins=256, range=(0, 256), label=name)
+  plt.legend()
+  plt.xlabel("Pixel Intensity")
+  plt.ylabel("Number of Pixels")
+  plt.title("Histogram of Image Color Channels")
+  plt.show()
+
+# Example usage
+image = cv2.imread("C:/Users/shree/Downloads/download (1).jpg")
+plot_color_channel_histograms(image)
