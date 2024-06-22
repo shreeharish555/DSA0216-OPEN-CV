@@ -1,0 +1,36 @@
+import cv2
+import numpy as np
+
+def modify_roi(image):
+  """
+  Modifies a specific ROI selected by the user in the image.
+
+  Args:
+      image: The input image as a NumPy array.
+
+  Returns:
+      The image with the modified ROI.
+  """
+  # Select ROI using mouse
+  (x, y, w, h) = cv2.selectROI("Image", image)
+  if x == 0 and y == 0 and w == 0 and h == 0:
+      return image  # User cancelled ROI selection
+
+  # Define modification (example: fill with black)
+  roi = image[y:y+h, x:x+w]
+  roi[:] = 0  # Set ROI pixels to black
+
+  # Combine modified ROI with original image
+  image[y:y+h, x:x+w] = roi
+
+  return image
+
+# Example usage
+image = cv2.imread("C:/Users/shree/Downloads/images.jpg")
+modified_image = modify_roi(image.copy())
+
+# Display original and modified images
+cv2.imshow("Original Image", image)
+cv2.imshow("Modified Image (ROI Filled)", modified_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
