@@ -1,0 +1,25 @@
+import cv2
+
+# Path to your image
+image_path = "C:/Users/shree/Downloads/images.jpg"
+
+# Read the image in color
+image = cv2.imread(image_path)
+
+# Check if image read successfully
+if image is None:
+    print("Error: Could not read image from", image_path)
+    exit()
+
+# Convert the image to grayscale
+grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Display the grayscale image (optional)
+cv2.imshow("Grayscale Image", grayscale_image)
+cv2.waitKey(0)
+
+# Save the grayscale image (optional)
+cv2.imwrite("grayscale_image.jpg", grayscale_image)
+
+# Close all windows
+cv2.destroyAllWindows()
