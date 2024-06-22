@@ -1,0 +1,33 @@
+import cv2
+
+# Path to your image
+image_path = "C:/Users/shree/Downloads/download (1).jpg"
+
+# Read the image
+image = cv2.imread(image_path)
+
+# Check if image read successfully
+if image is None:
+    print("Error: Could not read image from", image_path)
+    exit()
+
+# Resize to larger dimensions (e.g., double the size)
+new_width = image.shape[1] * 2
+new_height = image.shape[0] * 2
+resized_larger = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_AREA)
+
+# Resize to smaller dimensions (e.g., half the size)
+new_width = image.shape[1] // 2
+new_height = image.shape[0] // 2
+resized_smaller = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_LINEAR)
+
+# Display original, resized larger, and resized smaller images
+cv2.imshow("Original Image", image)
+cv2.imshow("Resized Larger", resized_larger)
+cv2.imshow("Resized Smaller", resized_smaller)
+
+# Wait for a key press to close windows
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
